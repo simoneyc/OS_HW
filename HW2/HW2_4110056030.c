@@ -241,20 +241,24 @@ int main(int argc, char **argv) {
 			add_path = strchr(arg_cat, ':');
 		}
 		else if(strcmp(args[0], "bg") == 0){
-			for (int i = 0; i < num_jobs; i++) {
-                		if (background_jobs[i].running == 0) {
-                			printf("bash: bg: job has terminated\n");
-                    			printf("[%d]+ Done\t\t%s\n", i + 1,background_jobs[i].name);
-                		}
-                		else{
-                			for(int j = 0; j < 10 ;j++){
-                				if(background_jobs[j].running == 1) {
-                					bg_count++;
- 						}
-                			}
-                			printf("bash: bg: job %d already in background\n",bg_count);
-                		}
-            		}
+			if(num_jobs==0){
+				printf("bash: bg: current: no such job\n");
+			}
+			else{
+		        	if (background_jobs[num_jobs].running == 0) {
+		        		printf("bash: bg: job has terminated\n");
+		            		printf("[%d]+ Done\t\t\t\t%s\n", num_jobs,background_jobs[num_jobs-1].name);
+		        	}
+		        	else{
+		        		for(int j = 0; j < 10 ;j++){
+		        			if(background_jobs[j].running == 1) {
+		        				bg_count++;
+	 					}
+		        		}
+		        		printf("bash: bg: job %d already in background\n",bg_count);
+		        	}
+		    		num_jobs = 0;
+		    	}
 		}
 		else if(strcmp(args[0], "exit") == 0) {
 			fflush(stdout);
@@ -322,6 +326,10 @@ int main(int argc, char **argv) {
 						background_jobs[num_jobs].name = bg_name;
 						num_jobs++;
 						printf("[%d]%d\n", num_jobs, pid);
+						if(num_jobs > 1){
+							printf("[%d]  Done\t\t\t\t%s\n",num_jobs-1,background_jobs[i].name);
+						}
+						
                     			}
 				}
 			}
