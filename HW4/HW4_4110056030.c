@@ -106,8 +106,7 @@ void *child(void *arg){
 	int pid = allocate_pid();
 	pthread_mutex_unlock(&mtx);
 	s = sleep_time();
-	printf("pid is %d, will sleep %d seconds\n",pid,s);
-	printf("tid is %lu\n",pthread_self());
+	printf("pid is %d, will sleep %d seconds\ntid is %lu\n",pid,s,pthread_self());
 	sleep(s);
 	pthread_mutex_lock(&mtx);
 	release_pid(pid);
