@@ -12,4 +12,4 @@
 
 :seedling: Thanks for my seniors' help.
 
-:page_with_curl: Some codes are search online and modified by myself. 
+:page_with_curl: Some codes are searched online and modified by myself. 
